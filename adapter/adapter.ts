@@ -1,20 +1,23 @@
 namespace AdapterPattern {
 
+    // 使われるやつ
     export class Adaptee {
-        public method(): void {
-            console.log("`method` of Adaptee is being called");
-        }
+        public method = (): string => "`method` of Adaptee is being called";
     }
 
-    export interface Target {
-        call(): void;
-    }
-
+    // Targetの具象クラス
     export class Adapter implements Target {
-        public call(): void {
+        public call = (): string => {
             console.log("Adapter's `call` method is being called");
-            var adaptee: Adaptee = new Adaptee();
-            adaptee.method();
+
+            // Adapteeクラスを委譲して使う
+            const adaptee: Adaptee = new Adaptee();
+            return adaptee.method();
         }
+    }
+
+    // 抽象クラス
+    export interface Target {
+        call(): string;
     }
 }
