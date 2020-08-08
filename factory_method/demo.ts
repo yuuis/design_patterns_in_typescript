@@ -1,14 +1,17 @@
 /// <reference path="factoryMethod.ts" />
 
 namespace FactoryMethodPattern {
-	export namespace Demo {
-		export function show() : void {
-		    var a: FactoryMethodPattern.AbstractProduct = FactoryMethodPattern.ProductFactory.createProduct("A");
-		    var b: FactoryMethodPattern.AbstractProduct = FactoryMethodPattern.ProductFactory.createProduct("B");
+    export namespace Demo {
+        export function show() : void {
+            // FactoryMethodを呼び出す側が知っている。
+            const car = new CarFactoryImpl().create("alex");
+            const bicycle = new BicycleFactoryImpl().create("bob");
 
-		    console.log(a.method());
-		    console.log(b.method());
-		};
-	}
+            // 結果はオブジェクトごとに異なる
+            console.log(car.use());
+            console.log(bicycle.use());
+        }
+    }
 }
 
+FactoryMethodPattern.Demo.show();
