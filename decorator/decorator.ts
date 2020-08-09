@@ -1,26 +1,28 @@
 namespace DecoratorPattern {
 
+    // 装飾される対象の抽象クラス。
     export interface Component {
         operation(): void;
     }
 
+    // Componentの具象クラス。修飾される？
     export class ConcreteComponent implements Component {
-        private s: String;
+        private readonly name: String;
 
         constructor(s: String) {
-            this.s = s;
+            this.name = s;
         }
 
-        public operation(): void {
-            console.log("`operation` of ConcreteComponent", this.s, " is being called!");
-        }
+        public operation = (): void => console.log(`${this.name}`);
     }
 
+    // Componentの具象クラス。Componentクラスを修飾する抽象クラス。
+    // 装飾対象のクラスをフィールドに持っていることが特徴。
     export class Decorator implements Component {
         private component: Component;
-        private id: Number;
+        private readonly id: number;
 
-        constructor(id: Number, component: Component) {
+        constructor(id: number, component: Component) {
             this.id = id;
             this.component = component;
         }
@@ -30,19 +32,20 @@ namespace DecoratorPattern {
         }
 
         public operation(): void {
-            console.log("`operation` of Decorator", this.id, " is being called!");
+            console.log("!!! decorated !!!");
             this.component.operation();
         }
     }
 
+    // Decoratorの具象クラス。実際に装飾を行う。
     export class ConcreteDecorator extends Decorator {
-        constructor(id: Number, component: Component) {
+        constructor(id: number, component: Component) {
             super(id, component);
         }
 
-        public operation(): void {
+        public operation = (): void => {
             super.operation();
-            console.log("`operation` of ConcreteDecorator", this.Id, " is being called!");
+            console.log(`--- decorated by decorator-${this.Id} ---`)
         }
     }
 }
